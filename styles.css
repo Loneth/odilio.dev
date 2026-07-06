@@ -1,0 +1,716 @@
+/* ==========================================================================
+   RETRO GAME THEME VARIABLES
+   ========================================================================== */
+:root {
+    --bg-dark: #05020c;
+    --neon-pink: #ff007f;
+    --neon-blue: #00f0ff;
+    --neon-green: #39ff14;
+    --neon-purple: #9d4edd;
+    
+    --cabinet-body: #130d22;
+    --cabinet-border: #22173e;
+    
+    --font-arcade: 'Press Start 2P', monospace;
+    --font-display: 'Orbitron', sans-serif;
+    --font-text: 'Outfit', sans-serif;
+    
+    --glow-pink: 0 0 10px rgba(255, 0, 127, 0.6), 0 0 20px rgba(255, 0, 127, 0.4);
+    --glow-blue: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.4);
+    --glow-green: 0 0 10px rgba(57, 255, 20, 0.6), 0 0 20px rgba(57, 255, 20, 0.4);
+}
+
+/* ==========================================================================
+   RESET & SYNTHWAVE GRID BACKGROUND
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #ffffff;
+    font-family: var(--font-text);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Moving Perspective Grid */
+.synthwave-grid {
+    position: fixed;
+    bottom: 0;
+    left: -50%;
+    width: 200%;
+    height: 60%;
+    background-image: 
+        linear-gradient(rgba(157, 78, 221, 0) 0%, rgba(157, 78, 221, 0.25) 80%),
+        linear-gradient(to right, rgba(0, 240, 255, 0.15) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 0, 127, 0.15) 1px, transparent 1px);
+    background-size: 100% 100%, 50px 50px, 50px 50px;
+    transform: perspective(300px) rotateX(60deg);
+    transform-origin: top center;
+    z-index: 1;
+    animation: grid-scroll 12s linear infinite;
+    pointer-events: none;
+}
+
+.synthwave-horizon {
+    position: fixed;
+    top: 40%;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: radial-gradient(ellipse at center, rgba(255, 0, 127, 0.3) 0%, transparent 70%);
+    z-index: 1;
+    pointer-events: none;
+}
+
+@keyframes grid-scroll {
+    0% { background-position: 0 0, 0 0, 0 0; }
+    100% { background-position: 0 0, 0 0, 0 600px; }
+}
+
+/* ==========================================================================
+   CONTAINER & HEADER
+   ========================================================================== */
+.container {
+    position: relative;
+    z-index: 2;
+    width: 95%;
+    max-width: 660px;
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.arcade-header {
+    text-align: center;
+    width: 100%;
+}
+
+.glitch-title {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    color: #ffffff;
+    text-shadow: var(--glow-blue);
+    position: relative;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.glitch-title::before,
+.glitch-title::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-dark);
+}
+
+.glitch-title::before {
+    left: 3px;
+    text-shadow: -2px 0 var(--neon-pink);
+    clip: rect(24px, 450px, 56px, 0);
+    animation: glitch-anim 4s infinite linear alternate-reverse;
+}
+
+.glitch-title::after {
+    left: -3px;
+    text-shadow: -2px 0 var(--neon-blue);
+    clip: rect(75px, 450px, 120px, 0);
+    animation: glitch-anim2 3s infinite linear alternate-reverse;
+}
+
+/* Warning construction banner */
+.under-construction-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.warning-tape {
+    width: 40px;
+    height: 8px;
+    background: repeating-linear-gradient(
+        -45deg,
+        #f5b700,
+        #f5b700 6px,
+        #000 6px,
+        #000 12px
+    );
+    border-radius: 2px;
+}
+
+.banner-text {
+    font-family: var(--font-arcade);
+    font-size: 0.55rem;
+    color: #f5b700;
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   ARCADE CABINET ASSEMBLY
+   ========================================================================== */
+.arcade-cabinet {
+    width: 100%;
+    background-color: var(--cabinet-body);
+    border: 4px solid var(--cabinet-border);
+    border-radius: 24px 24px 16px 16px;
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(157, 78, 221, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabinet Top Marquee */
+.cabinet-marquee {
+    background: linear-gradient(180deg, #1c1533 0%, #0d091b 100%);
+    border-bottom: 4px solid var(--cabinet-border);
+    padding: 16px;
+    text-align: center;
+    box-shadow: inset 0 -4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.marquee-text {
+    font-family: var(--font-arcade);
+    font-size: 1rem;
+    color: var(--neon-pink);
+    text-shadow: var(--glow-pink);
+    letter-spacing: 1px;
+}
+
+/* Screen Housing Area */
+.cabinet-screen-frame {
+    background: #090710;
+    padding: 24px;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CRT monitor screen emulation */
+.crt-screen {
+    width: 100%;
+    max-width: 600px;
+    aspect-ratio: 3 / 2;
+    background-color: #040209;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid #1c142c;
+    box-shadow: 
+        0 0 15px rgba(0, 240, 255, 0.1),
+        inset 0 0 40px rgba(0, 0, 0, 0.95);
+}
+
+/* Canvas */
+#game-canvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: pixelated;
+}
+
+/* Scanlines overlay */
+.scanlines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.screen-flicker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(18, 16, 16, 0.04);
+    opacity: 0.15;
+    z-index: 6;
+    pointer-events: none;
+    animation: flicker-key 0.15s infinite;
+}
+
+/* CRT screen curve vignette shadow */
+.crt-screen::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: radial-gradient(circle, transparent 70%, rgba(0, 0, 0, 0.65) 100%);
+    z-index: 7;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   GAME HUD OVERLAY
+   ========================================================================== */
+.game-hud {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 8;
+    pointer-events: none;
+}
+
+.hud-score {
+    font-family: var(--font-arcade);
+    font-size: 0.65rem;
+    color: var(--neon-blue);
+    text-shadow: var(--glow-blue);
+}
+
+.hud-lives {
+    color: var(--neon-pink);
+    font-size: 0.8rem;
+    filter: drop-shadow(0 0 4px var(--neon-pink));
+    display: flex;
+    gap: 6px;
+}
+
+/* Screen Overlays (Start, Game Over, Win) */
+.screen-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(4, 2, 9, 0.9);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    transition: opacity 0.3s ease;
+}
+
+.screen-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.arcade-title {
+    font-family: var(--font-arcade);
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.arcade-title.pulse {
+    color: var(--neon-blue);
+    text-shadow: var(--glow-blue);
+    animation: text-pulse-key 1.5s infinite alternate;
+}
+
+.arcade-title.danger {
+    color: var(--neon-pink);
+    text-shadow: var(--glow-pink);
+}
+
+.arcade-title.success {
+    color: var(--neon-green);
+    text-shadow: var(--glow-green);
+}
+
+.arcade-instructions {
+    font-size: 0.8rem;
+    color: #a097bb;
+    max-width: 380px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.controls-guide {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-family: var(--font-arcade);
+    font-size: 0.45rem;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: var(--neon-blue);
+    margin-bottom: 20px;
+}
+
+.key-cap {
+    background: #1e1a3a;
+    border: 1px solid #ff007f;
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: #ffffff;
+    display: inline-block;
+    box-shadow: 0 2px 0 var(--neon-pink);
+}
+
+.score-display {
+    font-family: var(--font-arcade);
+    font-size: 0.8rem;
+    color: #ffffff;
+    margin-bottom: 12px;
+}
+
+.score-display span {
+    color: var(--neon-blue);
+}
+
+.arcade-status {
+    color: #887fa5;
+    font-size: 0.75rem;
+    margin-bottom: 25px;
+}
+
+/* Button style inside arcade screen */
+.btn-arcade {
+    background: linear-gradient(180deg, var(--neon-pink) 0%, #b8005b 100%);
+    border: none;
+    font-family: var(--font-arcade);
+    font-size: 0.65rem;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #80003f, 0 0 15px rgba(255,0,127,0.4);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.btn-arcade:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #80003f, 0 0 20px rgba(255,0,127,0.6);
+}
+
+.btn-arcade:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #80003f;
+}
+
+/* ==========================================================================
+   CABINET CONTROLS ASSEMBLY (JOYSTICK & RED BUTTONS)
+   ========================================================================== */
+.cabinet-controls {
+    background: linear-gradient(180deg, #1c1533 0%, #0d091b 100%);
+    border-top: 4px solid var(--cabinet-border);
+    padding: 24px 30px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    box-shadow: inset 0 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Cabinet Joystick */
+.joystick-assembly {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.joystick-base {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #090612;
+    border: 3px solid #1a1230;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
+}
+
+.joystick-shaft {
+    width: 14px;
+    height: 35px;
+    background: linear-gradient(90deg, #8e9aaf 0%, #dee2e6 50%, #4a4e69 100%);
+    position: absolute;
+    bottom: 20px;
+    border-radius: 4px;
+    transform-origin: bottom center;
+    transition: transform 0.15s ease-out;
+}
+
+.joystick-ball {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 10px 10px, #ff4d6d, #c9184a, #800f2f);
+    position: absolute;
+    top: -24px;
+    left: -9px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+/* Hardware Buttons */
+.buttons-assembly {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-hardware {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 12px 12px, #ff437e, #b8005b);
+    border: 4px solid #180f2d;
+    box-shadow: 0 4px 0 #5c002e, 0 4px 8px rgba(0,0,0,0.4);
+    cursor: pointer;
+    transition: transform 0.1s, box-shadow 0.1s;
+    outline: none;
+    position: relative;
+}
+
+.btn-hardware::after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    top: 10%;
+    left: 10%;
+    background: radial-gradient(circle at 8px 8px, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.btn-hardware:active, .btn-hardware.active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #5c002e, 0 2px 4px rgba(0,0,0,0.6);
+    background: radial-gradient(circle at 12px 12px, #cc0052, #800033);
+}
+
+.cabinet-controls .label {
+    font-family: var(--font-arcade);
+    font-size: 0.45rem;
+    color: var(--neon-blue);
+    text-shadow: 0 0 5px rgba(0,240,255,0.4);
+    letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   MOBILE CONTROLLER DISPLAY
+   ========================================================================== */
+.mobile-controls {
+    display: none;
+    width: 100%;
+    gap: 12px;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.mobile-btn {
+    flex: 1;
+    background: rgba(30, 24, 58, 0.85);
+    border: 2px solid var(--neon-blue);
+    border-radius: 12px;
+    padding: 16px;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    touch-action: manipulation;
+    box-shadow: 0 4px 10px rgba(0, 240, 255, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.mobile-btn:active {
+    background: var(--neon-blue);
+    color: #000000;
+}
+
+.mobile-btn.fire {
+    flex: 1.5;
+    border-color: var(--neon-pink);
+    box-shadow: 0 4px 10px rgba(255, 0, 127, 0.15);
+    font-family: var(--font-arcade);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+}
+
+.mobile-btn.fire:active {
+    background: var(--neon-pink);
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   FOOTER LINKS & SOUND CONTROL
+   ========================================================================== */
+.footer-links {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.sound-toggle-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.sound-btn {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-family: var(--font-arcade);
+    font-size: 0.45rem;
+    color: var(--neon-blue);
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.sound-btn:hover {
+    background: rgba(0, 240, 255, 0.05);
+    border-color: var(--neon-blue);
+}
+
+.social-row {
+    display: flex;
+    gap: 16px;
+}
+
+.social-btn {
+    font-family: var(--font-arcade);
+    font-size: 0.5rem;
+    color: var(--neon-pink);
+    text-decoration: none;
+    border: 1px solid rgba(255,0,127,0.1);
+    padding: 8px 14px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.social-btn:hover {
+    background: rgba(255, 0, 127, 0.05);
+    border-color: var(--neon-pink);
+}
+
+.copyright {
+    font-size: 0.7rem;
+    color: #645c7e;
+    text-align: center;
+}
+
+/* ==========================================================================
+   ANIMATIONS & KEYFRAMES
+   ========================================================================== */
+@keyframes flicker-key {
+    0% { opacity: 0.27; }
+    50% { opacity: 0.23; }
+    100% { opacity: 0.28; }
+}
+
+@keyframes text-pulse-key {
+    0% { transform: scale(1); text-shadow: var(--glow-blue); }
+    100% { transform: scale(1.03); text-shadow: 0 0 15px rgba(0, 240, 255, 0.8), 0 0 25px rgba(0, 240, 255, 0.6); }
+}
+
+/* Glitch Title Animation */
+@keyframes glitch-anim {
+    0% { clip: rect(4px, 9999px, 50px, 0); transform: skew(0.3deg); }
+    10% { clip: rect(32px, 9999px, 15px, 0); transform: skew(0.5deg); }
+    20% { clip: rect(65px, 9999px, 105px, 0); transform: skew(-0.2deg); }
+    30% { clip: rect(0, 0, 0, 0); }
+    100% { clip: rect(0, 0, 0, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(0, 0, 0, 0); }
+    70% { clip: rect(0, 0, 0, 0); }
+    75% { clip: rect(45px, 9999px, 60px, 0); transform: skew(-0.5deg); }
+    85% { clip: rect(10px, 9999px, 110px, 0); transform: skew(0.6deg); }
+    95% { clip: rect(80px, 9999px, 12px, 0); transform: skew(-0.3deg); }
+    100% { clip: rect(0, 0, 0, 0); }
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN ADAPTATIONS
+   ========================================================================== */
+@media (max-width: 650px) {
+    .glitch-title {
+        font-size: 2rem;
+    }
+    
+    .cabinet-screen-frame {
+        padding: 12px;
+    }
+    
+    .cabinet-marquee {
+        padding: 10px;
+    }
+    
+    .marquee-text {
+        font-size: 0.75rem;
+    }
+    
+    .cabinet-controls {
+        display: none; /* Hide joystick control on mobile, use touch overlays */
+    }
+    
+    .mobile-controls {
+        display: flex; /* Show mobile touchscreen navigation buttons */
+    }
+    
+    .arcade-title {
+        font-size: 0.95rem;
+    }
+    
+    .arcade-instructions {
+        font-size: 0.65rem;
+        margin-bottom: 12px;
+    }
+    
+    .controls-guide {
+        display: none; /* Hide desktop keyboard keys guide */
+    }
+}

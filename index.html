@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="odilio.dev sedang dalam pengembangan. Mainkan game arcade 'Bug Blaster' selagi kami mempersiapkan sesuatu yang luar biasa!">
+    <title>odilio.dev | Retro Arcade</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Press+Start+2P&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Synthwave grid background -->
+    <div class="synthwave-grid"></div>
+    <div class="synthwave-horizon"></div>
+
+    <main class="container">
+        <!-- Arcade Header -->
+        <header class="arcade-header">
+            <h1 class="glitch-title" data-text="ODILIO.DEV">ODILIO.DEV</h1>
+            <div class="under-construction-banner">
+                <span class="warning-tape"></span>
+                <span class="banner-text">UNDER CONSTRUCTION // LEVEL 1: CODING</span>
+                <span class="warning-tape"></span>
+            </div>
+        </header>
+
+        <!-- Arcade Machine Cabinet -->
+        <section class="arcade-cabinet">
+            <!-- Neon Header / Marquee -->
+            <div class="cabinet-marquee">
+                <div class="marquee-text"><i class="fa-solid fa-gamepad"></i> BUG BLASTER v1.0 <i class="fa-solid fa-bug"></i></div>
+            </div>
+
+            <!-- Arcade Screen Frame -->
+            <div class="cabinet-screen-frame">
+                <div class="crt-screen">
+                    <!-- Scanline Overlay -->
+                    <div class="scanlines"></div>
+                    <div class="screen-flicker"></div>
+                    
+                    <!-- Game HUD Overlay (HTML-based for clean rendering) -->
+                    <div class="game-hud">
+                        <div class="hud-score">SCORE: <span id="score-val">0000</span></div>
+                        <div class="hud-lives" id="lives-container">
+                            <i class="fa-solid fa-heart"></i>
+                            <i class="fa-solid fa-heart"></i>
+                            <i class="fa-solid fa-heart"></i>
+                        </div>
+                    </div>
+
+                    <!-- Main Game Canvas -->
+                    <canvas id="game-canvas" width="600" height="400"></canvas>
+
+                    <!-- Game States Screens -->
+                    <div id="start-screen" class="screen-overlay">
+                        <h2 class="arcade-title pulse">TAP TO START</h2>
+                        <p class="arcade-instructions">Hancurkan BUG kode sebelum mereka mengambil alih sistem!</p>
+                        <div class="controls-guide">
+                            <div><span class="key-cap">←</span> / <span class="key-cap">→</span> : Gerak</div>
+                            <div><span class="key-cap">SPACE</span> : Tembak</div>
+                        </div>
+                        <button class="btn-arcade" id="btn-start-game">KIRIM INPUT</button>
+                    </div>
+
+                    <div id="game-over-screen" class="screen-overlay hidden">
+                        <h2 class="arcade-title danger">SYSTEM FAILURE</h2>
+                        <p class="score-display">SKOR ANDA: <span id="final-score-val">0</span></p>
+                        <p class="arcade-status">odilio.dev sedang dibangun kembali.</p>
+                        <button class="btn-arcade" id="btn-restart-game">COBA LAGI</button>
+                    </div>
+
+                    <div id="win-screen" class="screen-overlay hidden">
+                        <h2 class="arcade-title success">SYSTEM SECURED</h2>
+                        <p class="score-display">SKOR ANDA: <span id="win-score-val">0</span></p>
+                        <p class="arcade-status">Level selesai! Developer masih menyusun kode utama.</p>
+                        <button class="btn-arcade" id="btn-play-again">MAIN LAGI</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Joystick and Buttons Area (Cabinet Controls) -->
+            <div class="cabinet-controls">
+                <div class="joystick-assembly">
+                    <div class="joystick-base">
+                        <div class="joystick-shaft" id="hardware-joystick">
+                            <div class="joystick-ball"></div>
+                        </div>
+                    </div>
+                    <span class="label">GERAK</span>
+                </div>
+                <div class="buttons-assembly">
+                    <button class="btn-hardware red" id="hardware-btn-shoot" aria-label="Tembak"></button>
+                    <span class="label">TEMBAK</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mobile Touch Overlay Controls (only visible on mobile devices) -->
+        <div class="mobile-controls">
+            <button class="mobile-btn" id="mobile-left"><i class="fa-solid fa-arrow-left"></i></button>
+            <button class="mobile-btn fire" id="mobile-fire"><i class="fa-solid fa-crosshairs"></i> FIRE</button>
+            <button class="mobile-btn" id="mobile-right"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+
+        <!-- Social Media / About Drawer -->
+        <footer class="footer-links">
+            <div class="sound-toggle-container">
+                <button id="btn-mute" class="sound-btn" title="Toggle Sound"><i class="fa-solid fa-volume-high"></i> AUDIO: ON</button>
+            </div>
+            <div class="social-row">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="social-btn" title="GitHub"><i class="fa-brands fa-github"></i> github</a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin"></i> linkedin</a>
+                <a href="mailto:hello@odilio.dev" class="social-btn" title="Email"><i class="fa-solid fa-envelope"></i> email</a>
+            </div>
+            <p class="copyright">&copy; 2026 odilio.dev. Mainkan game selagi kami bekerja di balik layar.</p>
+        </footer>
+    </main>
+    
+    <script src="app.js"></script>
+</body>
+</html>
